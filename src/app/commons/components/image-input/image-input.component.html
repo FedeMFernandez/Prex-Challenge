@@ -1,0 +1,20 @@
+<input #inputFile type="file" class="box-file" type="file" formControlName="image"
+    (change)="onFileChangeEventHandler($event)" accept="image/*" />
+
+<div *ngIf="showImage; else hasNoImage" class="image-box">
+    <ion-label>
+        Click on the image to change it
+    </ion-label>
+    <ion-img [src]="imageSource" (click)="openSearchDialogEventHandler($event)"></ion-img>
+</div>
+<ng-template #hasNoImage>
+    <div class="box" (click)="openSearchDialogEventHandler($event)">
+        <ng-container *ngIf="this.selectedFile; else noFileSelected">
+            {{ this.selectedFile.name }}
+        </ng-container>
+        <ng-template #noFileSelected>
+            <ion-icon name="image-outline"></ion-icon>
+            <p>Click to select an image</p>
+        </ng-template>
+    </div>
+</ng-template>

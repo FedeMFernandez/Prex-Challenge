@@ -1,19 +1,90 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
-import { RouterTestingModule } from '@angular/router/testing';
 
+
+import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { NotificationService } from './commons/services/notification.service';
+import { NotificationBoxComponent } from './commons/components/notification-box/notification-box.component';
+import { of } from 'rxjs';
+import { tick, fakeAsync } from '@angular/core/testing';
+import { IonicModule } from '@ionic/angular';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { AuthService } from './commons/services/auth.service';
+import { LogoService } from './commons/services/logo.service';
+
+// describe('AppComponent', () => {
+//   let fixture: ComponentFixture<AppComponent>;
+//   let component: AppComponent;
+//   let notificationServiceSpy: jasmine.SpyObj<NotificationService>;
+
+//   beforeEach(() => {
+//     const spy = jasmine.createSpyObj('NotificationService', ['getNotification']);
+
+//     TestBed.configureTestingModule({
+//       imports: [
+//         IonicModule.forRoot(),
+//         IonicStorageModule.forRoot(),
+//         RouterTestingModule,
+//       ],
+//       providers: [
+//         // Any additional providers you might have
+//       ],
+//     });
+
+//     fixture = TestBed.createComponent(AppComponent);
+//     component = fixture.componentInstance;
+//     notificationServiceSpy = TestBed.inject(NotificationService) as jasmine.SpyObj<NotificationService>;
+//   });
+
+//   it('should create the app component', () => {
+//     expect(component).toBeTruthy();
+//   });
+
+//   it('should subscribe to notifications on init', () => {
+//     spyOn(component, 'listenNotifications');
+//     component.ngOnInit();
+//     expect(component.listenNotifications).toHaveBeenCalled();
+//   });
+
+//   it('should unsubscribe on destroy', () => {
+//     spyOn(component.subscription, 'unsubscribe');
+//     component.ngOnDestroy();
+//     expect(component.subscription.unsubscribe).toHaveBeenCalled();
+//   });
+
+
+//   it('should show and hide notification', fakeAsync(() => {
+//     spyOn(component.notification, 'show').and.returnValue(Promise.resolve());
+//     spyOn(component.notification, 'hide').and.returnValue(Promise.resolve());
+
+//     component.showNotification('Test Message', 'success');
+
+//     expect(component.notification.show).toHaveBeenCalledWith('Test Message', 'success');
+
+//     // Use fakeAsync and tick to simulate the passage of time for the setTimeout
+//     tick(3000);
+
+//     expect(component.notification.hide).toHaveBeenCalled();
+//   }));
+// });
 
 describe('AppComponent', () => {
-
-
   beforeEach(async () => {
 
     await TestBed.configureTestingModule({
       declarations: [AppComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [RouterTestingModule.withRoutes([])],
+      imports: [
+        IonicModule.forRoot(),
+        IonicStorageModule.forRoot(),
+        RouterTestingModule,
+      ],
+      providers: [
+        AuthService,
+        NotificationService,
+        LogoService,
+      ],
     }).compileComponents();
   });
 
@@ -21,26 +92,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it('should have menu labels', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const app = fixture.nativeElement;
-    const menuItems = app.querySelectorAll('ion-label');
-    expect(menuItems.length).toEqual(12);
-    expect(menuItems[0].textContent).toContain('Inbox');
-    expect(menuItems[1].textContent).toContain('Outbox');
-  });
-
-  it('should have urls', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const app = fixture.nativeElement;
-    const menuItems = app.querySelectorAll('ion-item');
-    expect(menuItems.length).toEqual(12);
-    expect(menuItems[0].getAttribute('ng-reflect-router-link')).toEqual('/folder/inbox');
-    expect(menuItems[1].getAttribute('ng-reflect-router-link')).toEqual('/folder/outbox');
   });
 
 });

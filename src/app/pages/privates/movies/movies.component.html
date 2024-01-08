@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ng-container *ngIf="enabledSearchInput && movies.length; else disabledSearchInput">
+      <ion-input placeholder="Filter by title" type="text" [(ngModel)]="filter" clearInput></ion-input>
+    </ng-container>
+    <ng-template #disabledSearchInput>
+      <ion-title align="center">Movies</ion-title>
+    </ng-template>
+    <ion-buttons slot="end">
+      <ion-button (click)="enabledSearchInput = !enabledSearchInput; resetFilter()">
+        <ion-icon slot="icon-only" [name]="enabledSearchInput && movies.length ? 'close' : 'search'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ng-container *ngIf="renderedMovies.length; else noContent">
+      <ion-row *ngFor="let movie of renderedMovies; let id = index">
+        <ion-col>
+          <ion-item-sliding>
+            <ion-item lines="none">
+              <app-movie-component [movie]="movie" (click)="viewMovie(id)"
+                (onStarClicked)="onStatClickedEvent(id, $event)"></app-movie-component>
+            </ion-item>
+            <ion-item-options side="end">
+              <ion-item-option (click)="editMovie(id)">Editar</ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+    <ng-template #noContent>
+      <ion-row>
+        <ion-col>
+          <div class="empty-list">
+            <ion-icon name="sad"></ion-icon>
+            <h2>List is empty</h2>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ng-template>
+  </ion-grid>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="center" (click)="addMovie()">
+    <ion-fab-button color="dark">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

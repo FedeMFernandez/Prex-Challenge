@@ -1,0 +1,22 @@
+:host {
+  top: 10px;
+  left: 0px;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  display: none;
+
+  div {
+    position: relative;
+    top: -100px;
+    text-align: center;
+    border-radius: 5px;
+
+    p {
+      padding: 10px;
+    }
+
+    margin: 0 auto;
+    width: 90%;
+  }
+}

@@ -1,0 +1,81 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button routerLink="movies"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ng-container *ngIf="isEdition; else isNotEditionButtons">
+        <ion-button [disabled]="isEdition && form.invalid" (click)="submitEventHandler(form.value)">
+          <ion-icon slot="icon-only" name="save"></ion-icon>
+        </ion-button>
+      </ng-container>
+      <ng-template #isNotEditionButtons>
+        <ion-button (click)="onEdition = true">
+          <ion-icon slot="icon-only" name="pencil"></ion-icon>
+        </ion-button>
+      </ng-template>
+      <ion-button *ngIf="!isEdition" (click)="deleteMovie()">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="isEdition; else isNotEdition">
+    <ion-grid>
+      <form [formGroup]="form">
+        <ion-row>
+          <ion-col>
+            <ion-input placeholder="Write here the title" formControlName="title" clearInput></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="image-col">
+            <app-image-input-component #imageInput [imageSource]="movieImage"
+              (onImageChanged)="onImageChangedEventHandler($event)"></app-image-input-component>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-row>
+              <ion-col align="center">
+                <ion-textarea rows="12" placeholder="Write here the synopsis" formControlName="synopsis"
+                  clearInput></ion-textarea>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid>
+  </ng-container>
+  <ng-template #isNotEdition>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h1>{{movie.title}}</h1>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="image-col">
+          <ion-img [src]="movie.image"></ion-img>
+        </ion-col>
+      </ion-row>
+      <ion-row class="flex-grow-1">
+        <ion-col>
+          <ion-row>
+            <div class="rate-date">
+              <app-rating-component [totalStars]="movie.stars"
+                (onStarClicked)="onStatClickedEvent(idParam, $event)"></app-rating-component>
+              <small class="align-self-end">{{movie.createdAt | dateFormat}}</small>
+            </div>
+          </ion-row>
+          <ion-row>
+            <ion-col align="center">
+              <h3>{{movie.synopsis}}</h3>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
+</ion-content>

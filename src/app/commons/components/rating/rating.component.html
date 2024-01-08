@@ -1,0 +1,7 @@
+<div class="rating">
+    <small>Rate</small>
+    <div class="stars">
+        <ion-icon *ngFor="let number of [1, 2, 3, 4, 5];" [name]="number <= totalStars ? 'star' : 'star-outline'"
+            (click)="rate(number); $event.stopPropagation()"></ion-icon>
+    </div>
+</div>

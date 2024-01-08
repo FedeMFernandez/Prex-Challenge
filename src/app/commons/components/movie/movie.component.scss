@@ -1,0 +1,43 @@
+:host {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  height: 250px;
+  border-radius: 20px;
+  background-color: var(--ion-color-dark);
+  color: var(--ion-color-dark-contrast);
+
+  ion-img {
+    max-width: 200px;
+    height: 100%;
+    object-fit: fill;
+  }
+
+  .box {
+    max-width: 70%;
+    height: 100%;
+    padding: 0 10px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    .textarea {
+      width: 80%;
+      overflow: hidden;
+      display: flex;
+      flex-flow: column;
+      text-align: center;
+      flex-grow: 1;
+
+      p {
+        overflow: scroll;
+        margin: 0;
+      }
+    }
+
+    app-rating-component {
+      align-self: self-start;
+    }
+  }
+}

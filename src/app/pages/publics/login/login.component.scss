@@ -1,0 +1,25 @@
+:host {
+  ion-grid {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    position: relative;
+
+    .image-col {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+
+      ion-img {
+        width: 150px;
+        height: 150px;
+        object-fit: inherit;
+        overflow: hidden;
+        border-radius: 50% !important;
+      }
+    }
+  }
+
+}
