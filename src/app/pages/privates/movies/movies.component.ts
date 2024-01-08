@@ -11,7 +11,7 @@ import { MovieRequest, MoviesService } from 'src/app/commons/services/movie.serv
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss']
 })
-export class MoviesComponent {
+export class MoviesComponent implements OnInit, OnDestroy {
 
   movies: any[] = [];
   filter: string = '';
@@ -31,16 +31,19 @@ export class MoviesComponent {
     private platform: Platform,
   ) { }
 
-  ionViewDidLeave(): void {
+  ngOnInit(): void {
+    this.platform.backButton.subscribeWithPriority(10, async () => {
+      await App.exitApp();
+    });
+  }
+
+  ngOnDestroy(): void {
     if (!this.backButtonSubscription.closed) {
       this.backButtonSubscription.unsubscribe();
     }
   }
 
   ionViewWillEnter(): void {
-    this.platform.backButton.subscribeWithPriority(10, async () => {
-      await App.exitApp();
-    });
     this.init()
   }
 

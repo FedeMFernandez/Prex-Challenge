@@ -1,33 +1,50 @@
-import { IonicModule } from '@ionic/angular';
-import { Component, ViewChild } from '@angular/core';
+import { IonicModule, Platform } from '@ionic/angular';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ImageInputComponent } from 'src/app/commons/components/image-input/image-input.component';
 import { LogoService } from 'src/app/commons/services/logo.service';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { NotificationService } from 'src/app/commons/services/notification.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logo',
   templateUrl: './logo.component.html',
   styleUrls: ['./logo.component.scss']
 })
-export class LogoComponent {
+export class LogoComponent implements OnInit, OnDestroy {
 
   @ViewChild('imageInput') imageInput!: ImageInputComponent;
+  backButtonSubscription: Subscription = new Subscription();
 
   selectedFile!: File | null;
-  image: string = 'https://fakeimg.pl/250x100/';
+  logo: string = '';
 
   constructor(
     private logoService: LogoService,
     private notificationService: NotificationService,
+    private platform: Platform,
+    private router: Router,
   ) { }
+
+  ngOnInit(): void {
+    this.platform.backButton.subscribeWithPriority(10, async () => {
+      this.router.navigate(['user', 'movies']);
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (!this.backButtonSubscription.closed) {
+      this.backButtonSubscription.unsubscribe();
+    }
+  }
 
   ionViewWillEnter(): void {
     this.getLogo();
   }
 
   async getLogo(): Promise<void> {
-    this.image = await this.logoService.get();
+    this.logo = await this.logoService.get();
   }
 
   async submitEventHandler(): Promise<void> {

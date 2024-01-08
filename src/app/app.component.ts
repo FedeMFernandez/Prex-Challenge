@@ -1,7 +1,10 @@
+import { Platform } from '@ionic/angular';
 import { NotificationService } from './commons/services/notification.service';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NotificationBoxComponent } from './commons/components/notification-box/notification-box.component';
 import { Subscription } from 'rxjs';
+import { AuthService } from './commons/services/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,8 +19,13 @@ export class AppComponent implements OnInit, OnDestroy {
   timeout!: any;
 
   constructor(
-    private NotificationService: NotificationService,
-  ) { }
+    private notificationService: NotificationService,
+    private platform: Platform,
+    private authService: AuthService,
+    private router: Router,
+  ) {
+    this.initializeApp();
+  }
 
   ngOnInit(): void {
     this.listenNotifications();
@@ -29,8 +37,18 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
+  initializeApp(): void {
+    this.platform.ready().then(async () => {
+      const isLogged = await this.authService.getLoggedIn();
+      if (isLogged) {
+        this.router.navigate(['user', 'movies']);
+        return;
+      }
+    });
+  }
+
   listenNotifications(): void {
-    this.NotificationService.getNotification.subscribe(async (notification) => {
+    this.notificationService.getNotification().subscribe(async (notification) => {
       await this.showNotification(notification.message, notification.mode);
     })
   }

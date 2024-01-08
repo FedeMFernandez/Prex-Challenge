@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { StorageService } from "./storage.service";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
 
   constructor(
@@ -11,8 +13,12 @@ export class AuthService {
   async getLoggedIn(): Promise<boolean> {
     return new Promise(async (resolve, reject) => {
       try {
-        const logged = JSON.parse(localStorage.getItem('logged') || ``);
-        resolve(!!logged)
+        const logged = localStorage.getItem('logged');
+        if (!logged) {
+          resolve(false);
+          return;
+        }
+        resolve(logged === 'true')
       } catch (error: any) {
         reject(false);
       }

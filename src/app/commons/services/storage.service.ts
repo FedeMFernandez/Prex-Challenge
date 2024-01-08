@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class StorageService {
   private _storage: Storage | null = null;
 

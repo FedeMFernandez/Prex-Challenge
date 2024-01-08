@@ -6,7 +6,9 @@ import { Capacitor } from '@capacitor/core';
 import { StorageService } from './storage.service';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class LogoService {
 
   constructor(
