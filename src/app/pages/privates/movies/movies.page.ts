@@ -1,5 +1,5 @@
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { App } from '@capacitor/app';
 import { Platform } from '@ionic/angular';
@@ -12,7 +12,7 @@ import { MoviesService } from 'src/app/commons/services/movie.service';
   templateUrl: './movies.page.html',
   styleUrls: ['./movies.page.scss']
 })
-export class MoviesPage implements OnInit, OnDestroy {
+export class MoviesPage implements OnInit {
 
   movies: any[] = [];
   filter: string = '';
