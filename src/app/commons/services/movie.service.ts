@@ -88,17 +88,23 @@ export class MoviesService {
           throw new Error("Movie not found");
         }
 
-        let fileData = '';
-        if (request.file) {
-          const { data, type } = await readFileAsBase64(request.file);
-          fileData = data;
+        let image = movies[id].image;
+        if (Capacitor.getPlatform() !== 'web') {
+          if (request.file) {
+            const { data, type } = await readFileAsBase64(request.file);
+            image = await this.fileSystemService.save(request.file.name, data)
+          }
+        } else {
+          if (request.file) {
+            const { data, type } = await readFileAsBase64(request.file);
+            image = data;
+          }
         }
+
         movies[id] = {
           ...movies[id],
           title: request.title,
-          image: (Capacitor.getPlatform() !== 'web'
-            ? await this.fileSystemService.save(request.file.name, fileData)
-            : fileData) || movies[id].image,
+          image: image,
           synopsis: request.synopsis,
         };
         this.storageService.set('movies', movies);
