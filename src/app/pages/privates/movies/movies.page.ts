@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { App } from '@capacitor/app';
 import { Platform } from '@ionic/angular';
@@ -12,7 +12,7 @@ import { MoviesService } from 'src/app/commons/services/movie.service';
   templateUrl: './movies.page.html',
   styleUrls: ['./movies.page.scss']
 })
-export class MoviesPage implements OnInit {
+export class MoviesPage {
 
   movies: any[] = [];
   filter: string = '';
@@ -32,7 +32,7 @@ export class MoviesPage implements OnInit {
     private platform: Platform,
   ) { }
 
-  ngOnInit(): void {
+  ionViewWillEnter(): void {
     this.platform.backButton.subscribeWithPriority(10, async () => {
       await App.exitApp();
     });
