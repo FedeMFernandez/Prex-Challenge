@@ -38,7 +38,7 @@ export class MoviesPage implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  ionViewWillLeave(): void {
     if (!this.backButtonSubscription.closed) {
       this.backButtonSubscription.unsubscribe();
     }
