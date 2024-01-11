@@ -80,7 +80,7 @@ export class MoviesService {
     });
   }
 
-  async update(id: number, request: MovieRequest): Promise<void> {
+  async update(id: number, request: MovieRequest): Promise<number> {
     return new Promise(async (resolve, reject) => {
       try {
         const movies: any[] = await this.storageService.get('movies') || [];
@@ -88,18 +88,22 @@ export class MoviesService {
           throw new Error("Movie not found");
         }
 
-        const { data, type } = await readFileAsBase64(request.file);
+        let fileData = '';
+        if (request.file) {
+          const { data, type } = await readFileAsBase64(request.file);
+          fileData = data;
+        }
         movies[id] = {
           ...movies[id],
           title: request.title,
           image: (Capacitor.getPlatform() !== 'web'
-            ? await this.fileSystemService.save(request.file.name, data)
-            : data),
+            ? await this.fileSystemService.save(request.file.name, fileData)
+            : fileData) || movies[id].image,
           synopsis: request.synopsis,
         };
         this.storageService.set('movies', movies);
 
-        resolve();
+        resolve(id);
       } catch (error: any) {
         reject(error);
       }
