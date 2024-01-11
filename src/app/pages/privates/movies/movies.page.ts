@@ -4,14 +4,15 @@ import { Router } from '@angular/router';
 import { App } from '@capacitor/app';
 import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { MovieRequest, MoviesService } from 'src/app/commons/services/movie.service';
+import { MoviesService } from 'src/app/commons/services/movie.service';
+
 
 @Component({
-  selector: 'app-movies',
-  templateUrl: './movies.component.html',
-  styleUrls: ['./movies.component.scss']
+  selector: 'app-movies-page',
+  templateUrl: './movies.page.html',
+  styleUrls: ['./movies.page.scss']
 })
-export class MoviesComponent implements OnInit, OnDestroy {
+export class MoviesPage implements OnInit, OnDestroy {
 
   movies: any[] = [];
   filter: string = '';

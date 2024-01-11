@@ -1,21 +1,19 @@
-import { LogoService } from 'src/app/commons/services/logo.service';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NotificationBoxComponent } from 'src/app/commons/components/notification-box/notification-box.component';
 import { AuthService, RecoverPasswordRequest } from 'src/app/commons/services/auth.service';
 import { NotificationService } from 'src/app/commons/services/notification.service';
 import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
-@Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss']
-})
-export class ForgotPasswordComponent implements OnInit, OnDestroy {
 
-  logo: string = '';
+@Component({
+  selector: 'app-forgot-password-page',
+  templateUrl: './forgot-password.page.html',
+  styleUrls: ['./forgot-password.page.scss']
+})
+export class ForgotPasswordPage implements OnInit, OnDestroy {
+
   backButtonSubscription: Subscription = new Subscription();
 
   form: FormGroup;
@@ -25,7 +23,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private logoService: LogoService,
     private notificationService: NotificationService,
     private platform: Platform,
   ) {
@@ -44,14 +41,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     if (!this.backButtonSubscription.closed) {
       this.backButtonSubscription.unsubscribe();
     }
-  }
-
-  ionViewWillEnter(): void {
-    this.init();
-  }
-
-  async init(): Promise<void> {
-    this.logo = await this.logoService.get();
   }
 
   async submitEventHandler(form: RecoverPasswordRequest): Promise<void> {

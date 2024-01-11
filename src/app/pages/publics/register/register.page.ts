@@ -1,46 +1,45 @@
-import { LogoService } from 'src/app/commons/services/logo.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService, LoginRequest } from 'src/app/commons/services/auth.service';
-import { NotificationService } from 'src/app/commons/services/notification.service';
 import { Platform } from '@ionic/angular';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService, RegisterRequest } from 'src/app/commons/services/auth.service';
 import { Subscription } from 'rxjs';
-import { App } from '@capacitor/app';
+import { NotificationService } from 'src/app/commons/services/notification.service';
+
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-register-page',
+  templateUrl: './register.page.html',
+  styleUrls: ['./register.page.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class RegisterPage implements OnInit, OnDestroy {
 
-  logo: string = '';
   viewPassword: boolean = false;
-
   backButtonSubscription: Subscription = new Subscription();
 
   form: FormGroup;
 
   usernameControl: FormControl = new FormControl('', Validators.required);
+  emailControl: FormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordControl: FormControl = new FormControl('', Validators.required);
 
   constructor(
     private router: Router,
     private authService: AuthService,
-    private logoService: LogoService,
-    private notificationService: NotificationService,
     private platform: Platform,
+    private notificationService: NotificationService,
   ) {
     this.form = new FormGroup({
       username: this.usernameControl,
+      email: this.emailControl,
       password: this.passwordControl,
+      repeatPassword: this.passwordControl,
     });
   }
 
   ngOnInit(): void {
     this.platform.backButton.subscribeWithPriority(10, async () => {
-      await App.exitApp();
+      this.router.navigate(['login']);
     });
   }
   
@@ -50,17 +49,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  ionViewWillEnter(): void {
-    this.init();
-  }
-
-  async init(): Promise<void> {
-    this.logo = await this.logoService.get();
-  }
-
-  async submitEventHandler(form: LoginRequest): Promise<void> {
+  async submitEventHandler(form: RegisterRequest): Promise<void> {
     try {
-      await this.authService.login(form);
+      await this.authService.register(form);
       await this.authService.setLoggedIn(true);
       this.router.navigate(['user']);
     }

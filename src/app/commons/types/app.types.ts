@@ -1,0 +1,1 @@
+export type ColorMode = 'success' | 'warning' | 'error';

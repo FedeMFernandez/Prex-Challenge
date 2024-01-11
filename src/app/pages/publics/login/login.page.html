@@ -2,7 +2,7 @@
   <ion-grid>
     <ion-row>
       <ion-col class="image-col">
-        <ion-img [src]="logo"></ion-img>
+        <app-logo-component></app-logo-component>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -10,22 +10,15 @@
         <form [formGroup]="form" (submit)="submitEventHandler(form.value)">
           <ion-row>
             <ion-col>
-              <ion-item>
-                <ion-input name="username" id="username" placeholder="Username" formControlName="username" clearInput></ion-input>
+              <ion-item class="roundedInput">
+                <ion-input placeholder="Username" formControlName="username" clearInput></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
               <ion-item>
-                <ion-input name="email" id="email" placeholder="Email" formControlName="email" clearInput></ion-input>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item>
-                <ion-input name="password" id="password" placeholder="Password" [type]="(viewPassword) ? 'text' : 'password'"
+                <ion-input placeholder="Password" [type]="(viewPassword) ? 'text' : 'password'"
                   formControlName="password" clearInput></ion-input>
                 <ion-icon [name]="(viewPassword) ? 'eye-off' : 'eye'" slot="end"
                   (click)="viewPassword = !viewPassword"></ion-icon>
@@ -34,10 +27,15 @@
           </ion-row>
           <ion-row>
             <ion-col>
-              <ion-button [disabled]="form.invalid" expand="block" type="submit">Register</ion-button>
+              <ion-button [disabled]="form.invalid" expand="block" type="submit">Login</ion-button>
             </ion-col>
           </ion-row>
         </form>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <a href="/register">Create account</a>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -46,7 +44,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <a href="/login">Already registered</a>
+        <a href="/forgot-password">Forgot password?</a>
       </ion-col>
     </ion-row>
   </ion-grid>

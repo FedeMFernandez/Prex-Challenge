@@ -1,18 +1,17 @@
-import { IonicModule, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ImageInputComponent } from 'src/app/commons/components/image-input/image-input.component';
 import { LogoService } from 'src/app/commons/services/logo.service';
-import { SafeResourceUrl } from '@angular/platform-browser';
 import { NotificationService } from 'src/app/commons/services/notification.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-logo',
-  templateUrl: './logo.component.html',
-  styleUrls: ['./logo.component.scss']
+  selector: 'app-logo-page',
+  templateUrl: './logo.page.html',
+  styleUrls: ['./logo.page.scss']
 })
-export class LogoComponent implements OnInit, OnDestroy {
+export class LogoPage implements OnInit, OnDestroy {
 
   @ViewChild('imageInput') imageInput!: ImageInputComponent;
   backButtonSubscription: Subscription = new Subscription();

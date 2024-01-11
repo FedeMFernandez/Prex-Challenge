@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { ColorMode } from '../types/app.types';
 
 
 @Injectable({
@@ -15,7 +16,7 @@ export class NotificationService {
     return this.notificationSubject.asObservable();
   }
   
-  show(message: string, mode: 'success' | 'warning' | 'error'): void {
+  show(message: string, mode: ColorMode): void {
     this.notificationSubject.next({
       message, mode
     });

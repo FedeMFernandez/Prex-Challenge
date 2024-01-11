@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { MovieRequest, MoviesService } from './../../../../commons/services/movie.service';
+import { MovieRequest, MoviesService } from '../../../../commons/services/movie.service';
 import { AlertController } from '@ionic/angular';
 import { ImageInputComponent } from 'src/app/commons/components/image-input/image-input.component';
 import { Subscription } from 'rxjs';
@@ -9,11 +9,11 @@ import { NotificationService } from 'src/app/commons/services/notification.servi
 
 
 @Component({
-  selector: 'app-movie-form',
-  templateUrl: './movie-form.component.html',
-  styleUrls: ['./movie-form.component.scss']
+  selector: 'app-movie-form-page',
+  templateUrl: './movie-form.page.html',
+  styleUrls: ['./movie-form.page.scss']
 })
-export class MovieFormComponent implements OnInit, OnDestroy {
+export class MovieFormPage implements OnInit, OnDestroy {
 
   @ViewChild('imageInput') imageInput!: ImageInputComponent;
 
@@ -125,7 +125,6 @@ export class MovieFormComponent implements OnInit, OnDestroy {
       this.titleControl.setValue(this.movie.title);
       this.synopsisControl.setValue(this.movie.synopsis);
       this.imageControl.setValue(this.movie.image);
-      console.log(this.movie);
     } catch (error: any) {
       this.notificationService.show(error.message, 'error');
     }

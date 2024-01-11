@@ -6,7 +6,7 @@ import { AppComponent } from "./app.component";
 import { AuthService } from "./commons/services/auth.service";
 import { NotificationService } from "./commons/services/notification.service";
 import { NotificationBoxComponent } from './commons/components/notification-box/notification-box.component';
-import { MoviesComponent } from './pages/privates/movies/movies.component';
+import { MoviesPage } from './pages/privates/movies/movies.page';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -29,7 +29,7 @@ describe('AppComponent', () => {
         RouterTestingModule.withRoutes([
           {
             path: 'user/movies',
-            component: MoviesComponent,
+            component: MoviesPage,
           }
         ]),
         IonicModule

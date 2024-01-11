@@ -5,6 +5,7 @@ import { NotificationBoxComponent } from './commons/components/notification-box/
 import { Subscription } from 'rxjs';
 import { AuthService } from './commons/services/auth.service';
 import { Router } from '@angular/router';
+import { ColorMode } from './commons/types/app.types';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class AppComponent implements OnInit, OnDestroy {
     })
   }
 
-  async showNotification(message: string, mode: 'success' | 'warning' | 'error'): Promise<void> {
+  async showNotification(message: string, mode: ColorMode): Promise<void> {
     if (!!this.timeout) {
       clearTimeout(this.timeout);
     }

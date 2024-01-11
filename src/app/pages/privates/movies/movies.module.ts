@@ -3,18 +3,19 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { MovieModule } from 'src/app/commons/components/movie/movie.module';
-import { MoviesComponent } from './movies.component';
-import { MovieFormComponent } from './movie-form/movie-form.component';
+import { MoviesPage } from './movies.page';
+import { MovieFormPage } from './movie-form/movie-form.page';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RatingModule } from 'src/app/commons/components/rating/rating.module';
 import { MoviesService } from 'src/app/commons/services/movie.service';
 import { ImageInputModule } from 'src/app/commons/components/image-input/image-input.module';
 import { DateFormatPipe } from 'src/app/commons/pipes/date-format.pipe';
 
+
 @NgModule({
   declarations: [
-    MoviesComponent,
-    MovieFormComponent,
+    MoviesPage,
+    MovieFormPage,
     DateFormatPipe,
   ],
   imports: [
@@ -23,15 +24,15 @@ import { DateFormatPipe } from 'src/app/commons/pipes/date-format.pipe';
     RouterModule.forChild([
       {
         path: '',
-        component: MoviesComponent,
+        component: MoviesPage,
       },
       {
         path: 'new',
-        component: MovieFormComponent,
+        component: MovieFormPage,
       },
       {
         path: ':id',
-        component: MovieFormComponent,
+        component: MovieFormPage,
       },
     ]),
     RouterModule,
@@ -46,4 +47,4 @@ import { DateFormatPipe } from 'src/app/commons/pipes/date-format.pipe';
     MoviesService,
   ]
 })
-export class MoviesModule { }
+export class MoviesPageModule { }

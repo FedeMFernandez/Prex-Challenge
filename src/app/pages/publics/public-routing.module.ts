@@ -4,15 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(module => module.LoginModule),
+    loadChildren: () => import('./login/login.module').then(module => module.LoginPageModule),
   },
   {
     path: 'register',
-    loadChildren: () => import('./register/register.module').then(module => module.RegisterModule),
+    loadChildren: () => import('./register/register.module').then(module => module.RegisterPageModule),
   },
   {
     path: 'forgot-password',
-    loadChildren: () => import('./forgot-password/forgot-password.module').then(module => module.ForgotPasswordModule),
+    loadChildren: () => import('./forgot-password/forgot-password.module').then(module => module.ForgotPasswordPageModule),
   },
   {
     path: '**',

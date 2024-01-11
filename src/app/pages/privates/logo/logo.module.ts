@@ -4,13 +4,13 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RatingModule } from 'src/app/commons/components/rating/rating.module';
-import { LogoComponent } from './logo.component';
+import { LogoPage } from './logo.page';
 import { ImageInputModule } from 'src/app/commons/components/image-input/image-input.module';
-import { LogoService } from 'src/app/commons/services/logo.service';
+
 
 @NgModule({
   declarations: [
-    LogoComponent,
+    LogoPage,
   ],
   imports: [
     CommonModule,
@@ -18,7 +18,7 @@ import { LogoService } from 'src/app/commons/services/logo.service';
     RouterModule.forChild([
       {
         path: '',
-        component: LogoComponent,
+        component: LogoPage,
       },
     ]),
     RouterModule,
@@ -28,4 +28,4 @@ import { LogoService } from 'src/app/commons/services/logo.service';
     ImageInputModule,
   ],
 })
-export class LogoModule { }
+export class LogoPageModule { }

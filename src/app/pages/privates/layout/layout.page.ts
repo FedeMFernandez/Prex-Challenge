@@ -1,15 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { LogoComponent } from 'src/app/commons/components/logo/logo.component';
 import { AuthService } from 'src/app/commons/services/auth.service';
 import { LogoService } from 'src/app/commons/services/logo.service';
 
+
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  selector: 'app-layout-page',
+  templateUrl: './layout.page.html',
+  styleUrls: ['./layout.page.scss']
 })
-export class LayoutComponent {
+export class LayoutPage {
+
+  @ViewChild('logoRef') logoRef!: LogoComponent;
 
   logo: string = '';
   public appPages = [
@@ -24,11 +28,11 @@ export class LayoutComponent {
   ) { }
 
   ionViewWillEnter(): void {
-    this.init();
+    this.getLogo();
   }
 
-  async init(): Promise<void> {
-    this.logo = await this.logoService.get(); 
+  async getLogo(): Promise<void> {
+    this.logo = await this.logoService.get();
   }
 
   viewLogo() {
@@ -39,5 +43,9 @@ export class LayoutComponent {
   async logout(): Promise<void> {
     await this.authService.setLoggedIn(false);
     this.router.navigate(['login']);
+  }
+
+  menuOpened(): void {
+    this.logoRef.getLogo();
   }
 }

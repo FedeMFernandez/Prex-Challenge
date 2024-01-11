@@ -1,0 +1,12 @@
+:host {
+  --logo-width: 150px;
+  --logo-height: 150px;
+
+  ion-img {
+    width: var(--logo-width);
+    height: var(--logo-height);
+    object-fit: inherit;
+    overflow: hidden;
+    border-radius: 50% !important;
+  }
+}

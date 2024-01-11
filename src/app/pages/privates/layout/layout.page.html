@@ -1,10 +1,10 @@
 <ion-content>
   <ion-split-pane contentId="private-content">
-    <ion-menu contentId="private-content" type="overlay">
+    <ion-menu contentId="private-content" type="overlay" (ionWillOpen)="menuOpened()">
       <ion-content>
         <ion-list>
           <ion-list-header>
-            <ion-img class="logo" [src]="logo"></ion-img>
+            <app-logo-component #logoRef></app-logo-component>
             <ion-label>CinemApp</ion-label>
             <ion-buttons>
               <ion-button (click)="viewLogo()">

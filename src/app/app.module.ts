@@ -10,6 +10,7 @@ import { NotificationService } from './commons/services/notification.service';
 import { NotificationBoxComponent } from './commons/components/notification-box/notification-box.component';
 import { LogoService } from './commons/services/logo.service';
 import { StorageService } from './commons/services/storage.service';
+import { FileSystemService } from './commons/services/filesystem.service';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { StorageService } from './commons/services/storage.service';
     LogoService,
     Platform,
     StorageService,
+    FileSystemService,
   ],
   bootstrap: [AppComponent],
 })

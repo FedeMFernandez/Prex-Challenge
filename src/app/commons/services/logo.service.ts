@@ -1,9 +1,8 @@
-import { Injectable, SecurityContext } from '@angular/core';
-import { Filesystem, Directory, WriteFileResult, ReadFileResult, GetUriResult } from '@capacitor/filesystem';
-import { readFileAsBase64 } from '../functions/encoding.functions';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Capacitor } from '@capacitor/core';
+import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
+import { FileSystemService } from './filesystem.service';
+import { readFileAsBase64 } from '../functions/encoding.functions';
+import { Capacitor } from '@capacitor/core';
 
 
 @Injectable({
@@ -13,14 +12,20 @@ export class LogoService {
 
   constructor(
     private storageService: StorageService,
-    private domSanitizer: DomSanitizer,
+    private fileSystemService: FileSystemService,
   ) { }
 
   async get(): Promise<string> {
     return new Promise(async (resolve, reject) => {
       try {
-        const logo: WriteFileResult = await this.storageService.get('logo');
-        resolve(Capacitor.convertFileSrc(logo?.uri) || '');
+        const logo = await this.storageService.get('logo');
+        if (!logo) {
+          resolve('./assets/images/logo.png');
+          return;
+        }
+        resolve((Capacitor.getPlatform() !== 'web'
+          ? await this.fileSystemService.get(logo)
+          : logo))
       } catch (error: any) {
         reject(error);
       }
@@ -31,12 +36,11 @@ export class LogoService {
     return new Promise(async (resolve, reject) => {
       try {
         const { data, type } = await readFileAsBase64(file);
-        const image = await Filesystem.writeFile({
-          path: file.name,
-          data: data,
-          directory: Directory.Documents,
-        });
-        this.storageService.set('logo', image);
+        this.storageService.set('logo',
+          (Capacitor.getPlatform() !== 'web'
+            ? await this.fileSystemService.save(file.name, data)
+            : data)
+        );
         resolve();
       } catch (error: any) {
         reject(error);

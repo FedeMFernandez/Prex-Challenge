@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { RegisterComponent } from './register.component';
+import { RegisterPage } from './register.page';
 import { IonicModule } from '@ionic/angular';
+import { LogoComponentModule } from 'src/app/commons/components/logo/logo.module';
 
 @NgModule({
   declarations: [
-    RegisterComponent,
+    RegisterPage,
   ],
   imports: [
     CommonModule,
@@ -15,11 +16,12 @@ import { IonicModule } from '@ionic/angular';
     RouterModule.forChild([
       {
         path: '',
-        component: RegisterComponent,
+        component: RegisterPage,
       },
     ]),
     FormsModule,
     ReactiveFormsModule,
+    LogoComponentModule,
   ],
 })
-export class RegisterModule { }
+export class RegisterPageModule { }

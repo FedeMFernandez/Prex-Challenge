@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutComponent } from './layout/layout.component';
-import { AuthGuard } from 'src/app/commons/guards/auth.guard';
+import { LayoutPage } from './layout/layout.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: LayoutComponent,
+    component: LayoutPage,
     children: [
       {
         path: 'movies',
-        loadChildren: () => import('./movies/movies.module').then(module => module.MoviesModule),
+        loadChildren: () => import('./movies/movies.module').then(module => module.MoviesPageModule),
       },
       {
         path: 'logo',
-        loadChildren: () => import('./logo/logo.module').then(module => module.LogoModule),
+        loadChildren: () => import('./logo/logo.module').then(module => module.LogoPageModule),
       },
       {
         path: '**',

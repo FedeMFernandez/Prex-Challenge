@@ -1,5 +1,6 @@
 import { AnimationController } from '@ionic/angular';
 import { Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
+import { ColorMode } from '../../types/app.types';
 
 @Component({
   selector: 'app-notification-box-component',
@@ -12,7 +13,7 @@ export class NotificationBoxComponent {
   @HostBinding('style.display') display!: string;
 
   message: string = 'Something went wrong';
-  mode: 'success' | 'warning' | 'error' = 'success';
+  mode: ColorMode = 'success';
   COLORS: any = {
     success: {
       'background-color': 'var(--ion-color-success)',
@@ -32,7 +33,7 @@ export class NotificationBoxComponent {
     private animationController: AnimationController
   ) { }
 
-  async show(message: string, mode: 'success' | 'warning' | 'error'): Promise<void> {
+  async show(message: string, mode: ColorMode): Promise<void> {
     return new Promise(async (resolve, reject) => {
       this.display = 'block';
       this.message = message;

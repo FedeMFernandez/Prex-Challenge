@@ -1,9 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { LayoutModule } from "./layout/layout.module";
+import { LayoutPageModule } from "./layout/layout.module";
 import { PrivateRoutingModule } from './private-routing.module';
-import { DateFormatPipe } from "src/app/commons/pipes/date-format.pipe";
-
 
 
 @NgModule({
@@ -12,7 +10,7 @@ import { DateFormatPipe } from "src/app/commons/pipes/date-format.pipe";
   imports: [
     CommonModule,
     PrivateRoutingModule,
-    LayoutModule,
+    LayoutPageModule,
   ],
   providers: [],
 })

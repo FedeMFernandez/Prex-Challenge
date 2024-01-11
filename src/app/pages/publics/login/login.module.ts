@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { LoginComponent } from './login.component';
+import { LoginPage } from './login.page';
 import { IonicModule } from '@ionic/angular';
-import { LogoService } from 'src/app/commons/services/logo.service';
+import { LogoComponentModule } from 'src/app/commons/components/logo/logo.module';
 
 
 @NgModule({
   declarations: [
-    LoginComponent,
+    LoginPage,
   ],
   imports: [
     CommonModule,
@@ -17,11 +17,12 @@ import { LogoService } from 'src/app/commons/services/logo.service';
     RouterModule.forChild([
       {
         path: '',
-        component: LoginComponent,
+        component: LoginPage,
       },
     ]),
     FormsModule,
     ReactiveFormsModule,
+    LogoComponentModule,
   ],
 })
-export class LoginModule { }
+export class LoginPageModule { }

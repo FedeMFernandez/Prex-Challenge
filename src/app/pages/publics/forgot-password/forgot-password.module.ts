@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ForgotPasswordComponent } from './forgot-password.component';
+import { ForgotPasswordPage } from './forgot-password.page';
 import { IonicModule } from '@ionic/angular';
+import { LogoComponentModule } from 'src/app/commons/components/logo/logo.module';
 
 
 @NgModule({
   declarations: [
-    ForgotPasswordComponent,
+    ForgotPasswordPage,
   ],
   imports: [
     CommonModule,
@@ -16,11 +17,12 @@ import { IonicModule } from '@ionic/angular';
     RouterModule.forChild([
       {
         path: '',
-        component: ForgotPasswordComponent,
+        component: ForgotPasswordPage,
       },
     ]),
     FormsModule,
     ReactiveFormsModule,
+    LogoComponentModule,
   ],
 })
-export class ForgotPasswordModule { }
+export class ForgotPasswordPageModule { }
