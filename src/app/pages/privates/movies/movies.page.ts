@@ -36,16 +36,13 @@ export class MoviesPage {
     this.platform.backButton.subscribeWithPriority(10, async () => {
       await App.exitApp();
     });
+    this.init()
   }
 
   ionViewWillLeave(): void {
     if (!this.backButtonSubscription.closed) {
       this.backButtonSubscription.unsubscribe();
     }
-  }
-
-  ionViewWillEnter(): void {
-    this.init()
   }
 
   async init(): Promise<void> {
